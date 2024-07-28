@@ -1,0 +1,10 @@
+declare module 'lodash.merge';
+declare module 'cors'
+declare module 'cookie-parser'
+declare module 'bcryptjs'
+declare module 'uuid'
+declare module 'express'
+declare module 'jsonwebtoken'
+declare module 'http-errors'
+declare module 'morgan'
+declare module 'body-parser'
