@@ -4,9 +4,9 @@ const {
     PROD_USERNAME,
     PROD_HOST,
     PROD_PASSWORD 
-} = process.env
+} = process.env;
 
-console.log('Running in prod mode')
+console.log('Running in prod mode');
 
 export default {
     DB_PORT: PROD_PORT,
