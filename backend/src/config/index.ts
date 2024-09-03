@@ -11,16 +11,16 @@ console.log("DB_HOST:", DB_HOST);
 console.log("DB_PORT:", DB_PORT);
 
 export const database = new Sequelize(
-  DB_NAME!,
-  DB_USERNAME!,
-  DB_PASSWORD as string,
+  DB_NAME as string,
+  DB_USERNAME as string,
+  DB_PASSWORD as string, // Ensure this is a string
   {
-    host: DB_HOST,
-    port: DB_PORT as unknown as number,
+    host: DB_HOST as string,
+    port: Number(DB_PORT), // Ensure port is a number
     dialect: "postgres",
     logging: false,
     dialectOptions: {
-      encrypt: true,
+      // Ensure encryption or other options if necessary
     },
   }
 );

@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const stage: any = process.env.NODE_ENV || 'development';
+const stage: string = process.env.NODE_ENV || 'development';
 let config;
 
 if (stage === "development") {
@@ -12,7 +12,6 @@ if (stage === "development") {
     config = require("./prod").default;
 }
 
-// Log the values to confirm they're being read correctly
 console.log("Environment Variables:");
 console.log("DB_PORT:", process.env.DB_PORT);
 console.log("DB_NAME:", process.env.DB_NAME);
@@ -31,3 +30,4 @@ export default merge(
   },
   config
 );
+

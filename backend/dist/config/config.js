@@ -14,6 +14,17 @@ if (stage === "development") {
 else if (stage === "production") {
     config = require("./prod").default;
 }
+console.log("Environment Variables:");
+console.log("DB_PORT:", process.env.DB_PORT);
+console.log("DB_NAME:", process.env.DB_NAME);
+console.log("DB_USERNAME:", process.env.DB_USERNAME);
+console.log("DB_HOST:", process.env.DB_HOST);
+console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
 exports.default = (0, lodash_merge_1.default)({
-    stage
+    stage,
+    DB_PORT: process.env.DB_PORT,
+    DB_NAME: process.env.DB_NAME,
+    DB_USERNAME: process.env.DB_USERNAME,
+    DB_HOST: process.env.DB_HOST,
+    DB_PASSWORD: process.env.DB_PASSWORD,
 }, config);

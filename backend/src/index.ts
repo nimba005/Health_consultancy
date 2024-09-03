@@ -1,5 +1,7 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config(); // Load environment variables first
+
+import express from "express";
 import { HttpError } from "http-errors";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -12,7 +14,6 @@ import consultantRoute from "./routes/ConsultantRoute/consultantRoute";
 
 const app = express();
 
-dotenv.config();
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(express.json());
