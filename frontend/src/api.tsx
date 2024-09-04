@@ -2,8 +2,8 @@
 
 import axios from "axios";
 
-// const baseURL = `http://localhost:3000`
-const baseURL = `https://health-consultancy.onrender.com`
+const baseURL = `http://localhost:3000`
+// const baseURL = `https://health-consultancy.onrender.com`
 const api = axios.create({
     baseURL,
 });
@@ -21,4 +21,4 @@ api.interceptors.request.use(
     }
 );
 
-export default api;
+export default api; // Corrected export
