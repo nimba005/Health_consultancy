@@ -18,15 +18,20 @@ const allowedOrigins = ["http://localhost:5173", "http://localhost:3000"];
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin, like mobile apps or curl requests
+      // Allow requests with no origin (like mobile apps or Postman)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
         const msg = `The CORS policy for this site does not allow access from the specified origin: ${origin}`;
         return callback(new Error(msg), false);
       }
-      return callback(null, true);
     },
     credentials: true, // Allow cookies to be sent/received
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    preflightContinue: false,
+    optionsSuccessStatus: 204, // Set a successful status for preflight
   })
 );
 
@@ -43,7 +48,7 @@ app.use("/consultations", consultantRoute);
 
 // Database synchronization
 database
-  .sync() // this will create tables if they do not exist
+  .sync()
   .then(() => {
     console.log("Database is connected");
   })
