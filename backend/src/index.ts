@@ -17,7 +17,15 @@ const app = express();
 const allowedOrigins = ["http://localhost:5173", "http://localhost:3000"];
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      // Allow requests with no origin, like mobile apps or curl requests
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = `The CORS policy for this site does not allow access from the specified origin: ${origin}`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     credentials: true, // Allow cookies to be sent/received
   })
 );
@@ -28,21 +36,25 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
+// Routes
 app.use("/users", userRoutes);
 app.use("/patient", patientRoutes);
 app.use("/consultations", consultantRoute);
 
+// Database synchronization
 database
   .sync() // this will create tables if they do not exist
-  .then(async () => {
+  .then(() => {
     console.log("Database is connected");
   })
   .catch((err: Error) => {
-    console.log(err);
+    console.error("Database connection error:", err);
   });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on ${process.env.PORT}`);
+// Server setup
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
 export default app;
